@@ -66,29 +66,37 @@ func read_settings(dir string) *Settings {
  * FUNCTIONS AND METHODS
  */
  func calc_cs(mesh *stl.Mesh, max_distance float64) {
-	y_cs := []float64
+	var y_cs []float64
 	index := 0
 	md2 := max_distance*max_distance
-	p0 := mesh.Profile[0]
-	for (p0[1] < mesh.Profile[len(mesh.Profile)-1][1])){
+	profile := mesh.Profile
+	p0 := profile[0]
+	y_cs = append(y_cs, p0[0])
+	for (p0[0] < profile[len(profile)-1][0]) {
+		fmt.Println(index)
 		// set next point as line edge
-		p1 := mesh.Profile[index + 1] 
+		p1 := profile[index + 1] 
 		// calc if line edge is too far away
-		dx := sp[0]-np[0]
-		dy := sp[1]-np[1]
+		dy := p0[0]-p1[0]
+		dx := p0[1]-p1[1]
 		if (dx*dx+dy*dy < md2) {
 			// ok, use it
+			fmt.Println("use it")
 			p0 = p1
-			y_cs = append(y_cs, p0[1])
+			y_cs = append(y_cs, p0[0])
 			index ++
 			continue
 		}
 		// nok, take the half distance to edge of line
-		p0[1] = p0[1] + (p1[1] - p0[1])/2.0
+		p0[0] = p0[0] + (p1[0] - p0[0])/2.0
 		k := dy/dx
-		m := sp[1] - k*sp[0]
-		p0[0] = (y - k)/m
+		m := p0[0] - k*p0[1]
+		p0[1] = (p0[0] - k)/m				
 	}
+	for _, val := range(y_cs) {
+		fmt.Println(val)
+	}
+	
 }
 
 /*
@@ -115,6 +123,7 @@ func main() {
 	// calculates the deck
 	calc_cs(deck, 10.0)
 	// 
+	fmt.Println("...done")
 	fmt.Println(settings.ToolRadius)
 	fmt.Println(deck.No_tri)
 	fmt.Println(bottom.No_tri)
