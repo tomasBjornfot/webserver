@@ -1,0 +1,41 @@
+{
+    "CamFolder": "/home/tomas/cnc/cam/", 
+    "BlockOffset": [
+        10.0, 
+        10.0, 
+        0.0
+    ], 
+    "ToolCuttingLength": 200.0, 
+    "HomingOffset": [
+        -401.0, 
+        3100.0, 
+        130.0
+    ], 
+    "XresRough": 10.0, 
+    "OutFolder": "/home/tomas/cnc/outdata/", 
+    "FeedrateMax": 500.0, 
+    "HandleWidth": 1, 
+    "YresFine": 10.0, 
+    "XresFine": 7.0, 
+    "MachineRotCenter": [
+        0.0, 
+        0.0
+    ], 
+    "FeedrateMin": 500.0, 
+    "MachineHolderDepth": 50.0, 
+    "ToolShaftLength": 2200.0, 
+    "ToolRadius": 12.5, 
+    "BlockThickness": 100.0, 
+    "BlockSize": [
+        600.0, 
+        1740.0, 
+        100.0
+    ], 
+    "MachineLength": 3100.0, 
+    "HandlePos": 0.25, 
+    "FeedrateChangeLimit": 150.0, 
+    "InFolder": "/home/tomas/cnc/indata/", 
+    "YresRough": 30.0, 
+    "HandleHeightOffset": 20.0, 
+    "FeedrateStringer": 1000
+}
