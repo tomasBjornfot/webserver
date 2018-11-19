@@ -36,13 +36,7 @@ type Settings struct {
 	CamFolder           string     `json:"CamFolder"`
 	OutFolder           string     `json:"OutFolder"`
 }
-type CrossSection struct {
-	X       [][1000]float64
-	Y       [][1000]float64
-	Z       [][1000]float64
-	No_rows int
-	No_cols [1000]int
-}
+
 /*
  * JSON FUNCTIONS
  */
@@ -65,39 +59,6 @@ func read_settings(dir string) *Settings {
 /*
  * FUNCTIONS AND METHODS
  */
- func calc_cs(mesh *stl.Mesh, max_distance float64) {
-	var y_cs []float64
-	index := 0
-	md2 := max_distance*max_distance
-	profile := mesh.Profile
-	p0 := profile[0]
-	y_cs = append(y_cs, p0[0])
-	for (p0[0] < profile[len(profile)-1][0]) {
-		fmt.Println(index)
-		// set next point as line edge
-		p1 := profile[index + 1] 
-		// calc if line edge is too far away
-		dy := p0[0]-p1[0]
-		dx := p0[1]-p1[1]
-		if (dx*dx+dy*dy < md2) {
-			// ok, use it
-			fmt.Println("use it")
-			p0 = p1
-			y_cs = append(y_cs, p0[0])
-			index ++
-			continue
-		}
-		// nok, take the half distance to edge of line
-		p0[0] = p0[0] + (p1[0] - p0[0])/2.0
-		k := dy/dx
-		m := p0[0] - k*p0[1]
-		p0[1] = (p0[0] - k)/m				
-	}
-	for _, val := range(y_cs) {
-		fmt.Println(val)
-	}
-	
-}
 
 /*
  * COMPOSITE FUNCTIONS
@@ -119,12 +80,10 @@ func main() {
 	// reads the settings from JSON file
 	settings := read_settings("settings.json")
 	// prepare the STL file
-	deck, bottom := prepare_stl("c:\\tmp\\test.stl")
-	// calculates the deck
-	calc_cs(deck, 10.0)
-	// 
-	fmt.Println("...done")
-	fmt.Println(settings.ToolRadius)
-	fmt.Println(deck.No_tri)
-	fmt.Println(bottom.No_tri)
+	deck, bottom := prepare_stl("/home/tomas/cnc/indata/MyShortboard.stl")
+	// calculating the profile
+    fmt.Println(settings)
+    fmt.Println(deck.No_tri)
+    fmt.Println(bottom.No_tri)
+
 }
