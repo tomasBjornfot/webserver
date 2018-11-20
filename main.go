@@ -79,11 +79,17 @@ func prepare_stl(path string) (*stl.Mesh, *stl.Mesh) {
 func main() {
 	// reads the settings from JSON file
 	settings := read_settings("settings.json")
-	// prepare the STL file
-	deck, bottom := prepare_stl("/home/tomas/cnc/indata/MyShortboard.stl")
-	// calculating the profile
-    fmt.Println(settings)
+	// prepare the STL files
+	deck, _ := prepare_stl("c:\\tmp\\testfile.stl")
+	// calculating the cross sections
+    cs_deck := deck.CalculateCrossSections(settings.YresFine, 1.0)
+    
+    //fmt.Println(settings)
     fmt.Println(deck.No_tri)
-    fmt.Println(bottom.No_tri)
-
+    fmt.Println(cs_deck.No_rows)
+    fmt.Println(cs_deck.No_cols[:cs_deck.No_rows])
+    j := 50
+    for i := range(cs_deck.X[j][:cs_deck.No_cols[j]]) {
+		fmt.Println(cs_deck.X[j][i], cs_deck.Y[j][i], cs_deck.Z[j][i])
+	}
 }
