@@ -91,14 +91,14 @@ func read_settings(dir string) *Settings {
 		p0[0] = p0[0] + (p1[0] - p0[0])/2.0
 		k := dy/dx
 		m := p0[0] - k*p0[1]
-		p0[1] = (p0[0] - k)/m				
+		p0[1] = (p0[0] - k)/m
+		break				
 	}
 	for _, val := range(y_cs) {
 		fmt.Println(val)
 	}
 	
 }
-
 /*
  * COMPOSITE FUNCTIONS
  */
